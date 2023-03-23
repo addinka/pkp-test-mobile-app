@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Ade Test in PKP</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar placeholder="Search a Handphone" (ionChange)="onSearchChange($event)" color="light"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- refresher -->
+
+  <ion-refresher slot="fixed" (ionRefresh)="ionRefresh($event)" (ionPull)="ionPull($event)"
+    (ionStart)="ionStart($event)" >
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!-- creates a skeleton list before the search completes -->
+
+  <ion-list *ngIf="pokemon.length == 0" lines="full">
+    <ion-item *ngFor="let i of [1,2,3,4,5]">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label class="ion-text-capitalize">
+        <h2>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h2>
+        <p>
+          <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+
+  <ion-list lines="full">
+    <ion-item *ngFor="let poke of pokemon;" [routerLink]="poke.id">
+      <ion-avatar slot="start">
+        <img [src]="poke.thumbnail" style="background: #f2f2f2;">
+      </ion-avatar>
+      <ion-label class="ion-text-capitalize">
+        <h2 class="">{{ poke.title }}</h2>
+        <p class="">Brand: {{ poke.brand }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+<!-- ion-infinite-scroll -->
+
+  <ion-infinite-scroll (ionInfinite)="loadPokemon(true, $event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more handphone...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

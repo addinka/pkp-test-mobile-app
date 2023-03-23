@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">{{ details?.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="details">
+    <ion-slides pager="true" [options]="slideOpts">
+      <ion-slide *ngFor="let sprite of details.images">
+        <img [src]="sprite" style="height: 250px;" >
+      </ion-slide>
+    </ion-slides>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="ion-text-capitalize">{{ details.title }}
+          <ion-chip color="primary" *ngFor="let t of details.types">
+            <ion-label>{{ t.type.name }}</ion-label>
+          </ion-chip>
+        </ion-card-title>
+        <ion-card-subtitle class="ion-text-capitalize">{{ details.brand }}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-list lines="full">
+          <ion-item>
+            <ion-label text-wrap><b>Prices:</b> <span class="ion-text-capitalize">
+                $ {{ details.price }}
+              </span></ion-label>
+          </ion-item>
+          <ion-item class="ion-text-capitalize">
+            <ion-label text-wrap><b>Description:</b>
+              <span class="ion-text-capitalize">
+              {{ details.description }}
+            </span></ion-label>
+           
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
